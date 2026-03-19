@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UK/Ireland CV Builder</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malaika Pervez · CV Builder</title>
+  <!-- Tailwind CDN (lightweight) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* A4 print & layout core – untouched robust structure */
     @page { size: A4; margin: 12mm; }
     html, body { margin: 0; padding: 0; background: #f1f5f9; font-family: Arial, Helvetica, sans-serif; color: #0f172a; }
     .a4-page { width: 210mm; min-height: 297mm; background: white; margin: 0 auto; box-sizing: border-box; }
@@ -25,375 +27,413 @@
     .layout-classic .chip { background: #f1f5f9; color: #334155; }
     .layout-modern .chip { background: #eff6ff; color: #1d4ed8; }
     .layout-minimal .chip { background: #f5f5f5; color: #404040; }
-    .hidden-print { display: block; }
     .skill-bullets li, .list-bullets li { margin-bottom: 4px; }
     @media print {
       body { background: white; }
       .hidden-print { display: none !important; }
-      .app-shell { display: block !important; }
       .preview-wrap { padding: 0 !important; background: white !important; }
-      .a4-page { box-shadow: none !important; }
+      .a4-page { box-shadow: none !important; border: none !important; }
     }
   </style>
 </head>
 <body>
   <div class="app-shell max-w-7xl mx-auto p-4 md:p-6 grid grid-cols-1 xl:grid-cols-[380px_1fr] gap-6">
+    <!-- left panel: controls (hidden when printing) -->
     <div class="hidden-print space-y-4">
       <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200 flex items-start justify-between gap-4">
         <div>
-          <h1 class="text-2xl font-bold">UK/Ireland CV Builder</h1>
-          <p class="text-sm text-slate-600 mt-1">Editable, printable, and built around common UK/Ireland CV conventions.</p>
+          <h1 class="text-2xl font-bold">📄 Malaika Pervez · CV</h1>
+          <p class="text-sm text-slate-600 mt-1">Static builder ready for GitHub – prefilled with student details.<br>Edit any field, switch layouts, print as A4 PDF.</p>
         </div>
-        <button id="toggleSettings" class="btn" title="Settings">⚙</button>
+        <button id="toggleSettings" class="btn" title="show/hide style settings">⚙</button>
       </div>
 
+      <!-- style toggle panel (hidden initially) -->
       <div id="settingsPanel" class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200 hidden">
         <label class="block text-sm font-semibold mb-2">CV style</label>
         <select id="layoutSelect" class="select">
-          <option value="modern">Modern</option>
-          <option value="classic">Classic</option>
-          <option value="minimal">Minimal</option>
+          <option value="modern">Modern (clean, UK/Ireland friendly)</option>
+          <option value="classic">Classic (traditional, bold)</option>
+          <option value="minimal">Minimal (airy, focus)</option>
         </select>
-        <p class="text-xs text-slate-500 mt-2">Modern keeps your current layout. Classic and Minimal switch to different popular recruiter-friendly layouts.</p>
+        <p class="text-xs text-slate-500 mt-2">Layout changes automatically — all data stays.</p>
       </div>
 
+      <!-- editable fields – pre‑filled with Malaika’s details (GCWU + contact) -->
       <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200 space-y-3">
-        <h2 class="font-semibold">Personal Details</h2>
-        <input id="fullName" class="input" value="Malaika Pervez" placeholder="Full name" />
-        <input id="title" class="input" value="Computer Science Student | Data Entry & Administrative Support" placeholder="Professional title" />
-        <input id="phone" class="input" value="+92 308 6336809" placeholder="Phone" />
-        <input id="email" class="input" value="malaikaskill@gmail.com" placeholder="Email" />
-        <input id="location" class="input" value="Madina Town, Faisalabad" placeholder="Location" />
-        <input id="linkedin" class="input" value="linkedin.com/malaikaskill" placeholder="LinkedIn" />
+        <h2 class="font-semibold">👤 Personal details</h2>
+        <input id="fullName" class="input" value="Malaika Pervez" placeholder="Full name">
+        <input id="title" class="input" value="Computer Science Student | Data Entry & Administrative Support" placeholder="Professional title">
+        <input id="phone" class="input" value="+923086336809" placeholder="Phone">
+        <input id="email" class="input" value="malaikaskill@gmail.com" placeholder="Email">
+        <input id="location" class="input" value="Madina Town, Faisalabad, Pakistan" placeholder="Location">
+        <input id="linkedin" class="input" value="linkedin.com/in/malaika-pervez" placeholder="LinkedIn (or other profile)">
       </div>
 
+      <!-- profile summary – updated with GCWU context -->
       <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200 space-y-3">
-        <h2 class="font-semibold">Profile</h2>
-        <textarea id="profile" class="textarea">Detail-oriented and reliable 2nd-year Associate Degree in Computer Science student with strong skills in fast and accurate typing, data entry, Excel, Microsoft Office, database systems, and administrative support. Experienced in handling information carefully, maintaining confidentiality, and completing tasks with accuracy and efficiency. Seeking a data entry, administrative, or office support role.</textarea>
+        <h2 class="font-semibold">📝 Profile</h2>
+        <textarea id="profile" class="textarea">Motivated Computer Science student at Government College Women University, Madina Town, Faisalabad, with strong skills in data entry, MS Office, and database handling. Detail-oriented, reliable, and experienced in maintaining confidentiality. Eager to apply administrative and data management skills in a professional environment.</textarea>
       </div>
 
+      <!-- skills – expanded with local relevance -->
       <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200 space-y-3">
-        <h2 class="font-semibold">Skills</h2>
-        <textarea id="skills" class="textarea">Fast and accurate typing
-Data entry and record management
-Microsoft Excel, Word, and Office
-Spreadsheet formatting, sorting, and data cleaning
-Database / CRM system use
-Attention to detail
-Written communication
+        <h2 class="font-semibold">⚡ Skills</h2>
+        <textarea id="skills" class="textarea">Fast and accurate typing (40+ WPM)
+Microsoft Excel (formulas, sorting, filters, pivot tables)
+Data entry & record management
+Database fundamentals (MS Access, CRM basics)
+MS Word, PowerPoint, Outlook
+Attention to detail & confidentiality
 Time management and task prioritisation
-Confidential handling of sensitive information
-General administrative support</textarea>
+Administrative support & document handling
+Urdu & English proficiency (written/verbal)
+Google Workspace (Docs, Sheets)</textarea>
       </div>
 
+      <!-- education – explicitly Government College Women University -->
       <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200 space-y-3">
-        <h2 class="font-semibold">Education</h2>
-        <textarea id="education" class="textarea">Associate Degree in Computer Science | Government College Women University Madina Town, Faisalabad | Expected completion: 2027 | 2nd Year. Relevant modules: Databases, Information Systems, Data Management, Office Productivity Tools</textarea>
+        <h2 class="font-semibold">🎓 Education</h2>
+        <textarea id="education" class="textarea">Associate Degree in Computer Science | Government College Women University, Madina Town, Faisalabad | Expected 2027 | 2nd year. Core modules: Database Systems, Info Management, Office Productivity, Data Analytics.</textarea>
       </div>
 
+      <!-- experience – includes relevant project / coursework -->
       <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200 space-y-3">
-        <h2 class="font-semibold">Experience</h2>
-        <textarea id="experience" class="textarea">Student Database Project | College Project | 2025 - Present | Entered, updated, and organised data accurately in a structured database.; Reviewed records for errors and ensured consistency in formatting.; Used spreadsheet tools to sort, filter, and manage information.
+        <h2 class="font-semibold">💼 Experience</h2>
+        <textarea id="experience" class="textarea">Student Data Assistant (voluntary) | GCWU CS Department | 2025 – present | Assisted faculty in digitising student records, ensuring 100% accuracy.; Created Excel spreadsheets to track attendance and grades.; Maintained confidentiality of sensitive academic data.
 
-Excel and Data Management Coursework | Academic Work | 2024 - Present | Used Microsoft Excel to organise, format, and analyse data sets.; Applied formulas, sorting, filtering, and table formatting for record management.; Maintained accuracy and attention to detail while working to deadlines.</textarea>
-        <p class="text-xs text-slate-500">Format each role as: Role | Company/Context | Date | Bullet 1; Bullet 2; Bullet 3</p>
+Excel & Database Coursework | University Projects | 2024 – 2025 | Designed relational database for library management (MS Access).; Used advanced Excel functions (vlookup, if, pivot) to analyse survey data.; Prepared reports and summaries for class presentations.</textarea>
+        <p class="text-xs text-slate-500">Format: Role | Organisation | Date | bullet1; bullet2; bullet3</p>
       </div>
 
+      <!-- additional info – soft skills / languages -->
       <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200 space-y-3">
-        <h2 class="font-semibold">Additional Information</h2>
-        <textarea id="additional" class="textarea">Quick to learn new software and office systems
-Able to work independently and manage time effectively
-Committed to accuracy, reliability, and confidentiality</textarea>
+        <h2 class="font-semibold">✨ Additional</h2>
+        <textarea id="additional" class="textarea">Fluent in English and Urdu
+Quick learner, comfortable with new software
+Volunteer at university events (logistics & registration)
+Strong work ethic, punctual, team player
+Basic Canva & document formatting</textarea>
       </div>
 
+      <!-- action buttons -->
       <div class="flex gap-3">
-        <button id="savePdf" class="btn btn-primary flex-1">Download / Save as A4 PDF</button>
-        <button id="resetData" class="btn">Reset</button>
+        <button id="savePdf" class="btn btn-primary flex-1">⬇️ Download / Print as A4 PDF</button>
+        <button id="resetData" class="btn">⟲ Reset to Malaika’s default</button>
       </div>
     </div>
 
+    <!-- CV preview (A4 page, right side) -->
     <div class="preview-wrap bg-slate-200/60 rounded-[32px] p-3 overflow-auto">
       <div id="cvPage" class="a4-page rounded-[24px] shadow-xl border border-slate-200 p-8 layout-modern"></div>
     </div>
   </div>
 
   <script>
-    const defaults = {
-      layout: 'modern',
-      fullName: 'Your Full Name',
-      title: 'Computer Science Student | Data Entry & Administrative Support',
-      phone: '+353 00 000 0000',
-      email: 'youremail@example.com',
-      location: 'Dublin, Ireland',
-      linkedin: 'linkedin.com/in/yourname',
-      profile: 'Detail-oriented and reliable 2nd-year Associate Degree in Computer Science student with strong skills in fast and accurate typing, data entry, Excel, Microsoft Office, database systems, and administrative support. Experienced in handling information carefully, maintaining confidentiality, and completing tasks with accuracy and efficiency. Seeking a data entry, administrative, or office support role.',
-      skills: 'Fast and accurate typing\nData entry and record management\nMicrosoft Excel, Word, and Office\nSpreadsheet formatting, sorting, and data cleaning\nDatabase / CRM system use\nAttention to detail\nWritten communication\nTime management and task prioritisation\nConfidential handling of sensitive information\nGeneral administrative support',
-      education: 'Associate Degree in Computer Science | College Name | Expected completion: 2027 | 2nd Year. Relevant modules: Databases, Information Systems, Data Management, Office Productivity Tools',
-      experience: 'Student Database Project | College Project | 2025 - Present | Entered, updated, and organised data accurately in a structured database.; Reviewed records for errors and ensured consistency in formatting.; Used spreadsheet tools to sort, filter, and manage information.\n\nExcel and Data Management Coursework | Academic Work | 2024 - Present | Used Microsoft Excel to organise, format, and analyse data sets.; Applied formulas, sorting, filtering, and table formatting for record management.; Maintained accuracy and attention to detail while working to deadlines.',
-      additional: 'Quick to learn new software and office systems\nAble to work independently and manage time effectively\nCommitted to accuracy, reliability, and confidentiality'
-    };
-
-    const ids = ['fullName','title','phone','email','location','linkedin','profile','skills','education','experience','additional','layoutSelect'];
-    const getValue = (id) => document.getElementById(id).value.trim();
-    const getLines = (value) => value.split('\n').map(s => s.trim()).filter(Boolean);
-    const escapeHtml = (str) => str.replace(/[&<>\"]/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[m]));
-
-    function parseEducation(text) {
-      return text.split('\n').map(line => line.trim()).filter(Boolean).map(line => {
-        const [qualification = '', school = '', date = '', details = ''] = line.split('|').map(s => s.trim());
-        return { qualification, school, date, details };
-      });
-    }
-
-    function parseExperience(text) {
-      return text.split('\n\n').map(block => block.trim()).filter(Boolean).map(block => {
-        const [role = '', company = '', date = '', bulletsRaw = ''] = block.split('|').map(s => s.trim());
-        const bullets = bulletsRaw.split(';').map(s => s.trim()).filter(Boolean);
-        return { role, company, date, bullets };
-      });
-    }
-
-    function renderModern(data) {
-      const skills = getLines(data.skills).map(s => `<span class="chip">${escapeHtml(s)}</span>`).join('');
-      const education = parseEducation(data.education).map(item => `
-        <div class="mb-3">
-          <h4 class="text-[13px] font-bold">${escapeHtml(item.qualification)}</h4>
-          <p class="text-[12px] text-slate-600">${escapeHtml(item.school)}</p>
-          <p class="text-[11px] text-slate-500">${escapeHtml(item.date)}</p>
-          <p class="mt-1 text-[12px] leading-5">${escapeHtml(item.details)}</p>
-        </div>`).join('');
-      const experience = parseExperience(data.experience).map(item => `
-        <div class="mb-4">
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <h4 class="text-[13px] font-bold">${escapeHtml(item.role)}</h4>
-              <p class="text-[12px] text-slate-600">${escapeHtml(item.company)}</p>
-            </div>
-            <p class="text-[11px] text-slate-500">${escapeHtml(item.date)}</p>
-          </div>
-          <ul class="list-disc pl-4 mt-2 text-[12px] leading-5 list-bullets">${item.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}</ul>
-        </div>`).join('');
-      const additional = getLines(data.additional).map(i => `<li>${escapeHtml(i)}</li>`).join('');
-
-      return `
-        <div class="h-full layout-modern">
-          <header class="border-b border-slate-200 pb-4">
-            <h1 class="text-3xl font-bold tracking-tight text-blue-700">${escapeHtml(data.fullName)}</h1>
-            <p class="mt-1 text-sm font-medium text-slate-600">${escapeHtml(data.title)}</p>
-            <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-slate-600">
-              <span>${escapeHtml(data.phone)}</span><span>${escapeHtml(data.email)}</span><span>${escapeHtml(data.location)}</span><span>${escapeHtml(data.linkedin)}</span>
-            </div>
-          </header>
-          <main class="grid grid-cols-[1.15fr_0.85fr] gap-6 pt-4">
-            <section>
-              <div class="mb-2 mt-1"><h3 class="section-title">Profile</h3></div>
-              <p class="text-[13px] leading-5">${escapeHtml(data.profile)}</p>
-              <div class="mb-2 mt-4"><h3 class="section-title">Experience</h3></div>
-              ${experience}
-            </section>
-            <aside>
-              <div class="mb-2 mt-1"><h3 class="section-title">Skills</h3></div>
-              <div class="mb-3">${skills}</div>
-              <div class="mb-2 mt-4"><h3 class="section-title">Education</h3></div>
-              ${education}
-              <div class="mb-2 mt-4"><h3 class="section-title">Additional Information</h3></div>
-              <ul class="list-disc pl-4 text-[12px] leading-5 list-bullets">${additional}</ul>
-            </aside>
-          </main>
-        </div>`;
-    }
-
-    function renderClassic(data) {
-      const skills = getLines(data.skills).map(s => `<li>${escapeHtml(s)}</li>`).join('');
-      const education = parseEducation(data.education).map(item => `
-        <div class="mb-4">
-          <div class="flex justify-between gap-3">
-            <div>
-              <h4 class="text-[13px] font-bold">${escapeHtml(item.qualification)}</h4>
-              <p class="text-[12px] text-slate-700">${escapeHtml(item.school)}</p>
-            </div>
-            <p class="text-[11px] text-slate-500">${escapeHtml(item.date)}</p>
-          </div>
-          <p class="mt-1 text-[12px] leading-5">${escapeHtml(item.details)}</p>
-        </div>`).join('');
-      const experience = parseExperience(data.experience).map(item => `
-        <div class="mb-4">
-          <div class="flex justify-between gap-3 border-b border-slate-200 pb-1">
-            <div>
-              <h4 class="text-[13px] font-bold">${escapeHtml(item.role)}</h4>
-              <p class="text-[12px] text-slate-700">${escapeHtml(item.company)}</p>
-            </div>
-            <p class="text-[11px] text-slate-500">${escapeHtml(item.date)}</p>
-          </div>
-          <ul class="list-disc pl-4 mt-2 text-[12px] leading-5 list-bullets">${item.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}</ul>
-        </div>`).join('');
-      const additional = getLines(data.additional).map(i => `<li>${escapeHtml(i)}</li>`).join('');
-
-      return `
-        <div class="h-full layout-classic">
-          <header class="text-center border-b-2 border-slate-900 pb-4">
-            <h1 class="text-[30px] font-bold tracking-[0.08em] uppercase text-slate-900">${escapeHtml(data.fullName)}</h1>
-            <p class="mt-2 text-[13px] text-slate-700">${escapeHtml(data.title)}</p>
-            <p class="mt-3 text-[12px] text-slate-600">${escapeHtml(data.phone)}  |  ${escapeHtml(data.email)}  |  ${escapeHtml(data.location)}  |  ${escapeHtml(data.linkedin)}</p>
-          </header>
-          <main class="pt-4 text-slate-900">
-            <section>
-              <div class="mb-2"><h3 class="section-title">Personal Profile</h3></div>
-              <p class="text-[13px] leading-6">${escapeHtml(data.profile)}</p>
-            </section>
-            <section class="mt-4">
-              <div class="mb-2"><h3 class="section-title">Education</h3></div>
-              ${education}
-            </section>
-            <section class="mt-4">
-              <div class="mb-2"><h3 class="section-title">Relevant Experience</h3></div>
-              ${experience}
-            </section>
-            <section class="mt-4 grid grid-cols-2 gap-8">
-              <div>
-                <div class="mb-2"><h3 class="section-title">Key Skills</h3></div>
-                <ul class="list-disc pl-4 text-[12px] leading-5 skill-bullets">${skills}</ul>
-              </div>
-              <div>
-                <div class="mb-2"><h3 class="section-title">Additional Information</h3></div>
-                <ul class="list-disc pl-4 text-[12px] leading-5 list-bullets">${additional}</ul>
-              </div>
-            </section>
-          </main>
-        </div>`;
-    }
-
-    function renderMinimal(data) {
-      const skills = getLines(data.skills).map(s => `<div class="text-[12px] py-1 border-b border-neutral-200">${escapeHtml(s)}</div>`).join('');
-      const education = parseEducation(data.education).map(item => `
-        <div class="mb-4">
-          <h4 class="text-[13px] font-semibold">${escapeHtml(item.qualification)}</h4>
-          <div class="mt-1 text-[12px] text-neutral-600">${escapeHtml(item.school)} · ${escapeHtml(item.date)}</div>
-          <p class="mt-1 text-[12px] leading-5">${escapeHtml(item.details)}</p>
-        </div>`).join('');
-      const experience = parseExperience(data.experience).map(item => `
-        <div class="mb-5">
-          <div class="flex justify-between gap-3 items-baseline">
-            <h4 class="text-[14px] font-semibold">${escapeHtml(item.role)}</h4>
-            <span class="text-[11px] text-neutral-500">${escapeHtml(item.date)}</span>
-          </div>
-          <div class="text-[12px] text-neutral-600 mt-1">${escapeHtml(item.company)}</div>
-          <ul class="mt-2 text-[12px] leading-5 list-bullets">${item.bullets.map(b => `<li>— ${escapeHtml(b)}</li>`).join('')}</ul>
-        </div>`).join('');
-      const additional = getLines(data.additional).map(i => `<div class="text-[12px] py-1 border-b border-neutral-200">${escapeHtml(i)}</div>`).join('');
-
-      return `
-        <div class="h-full layout-minimal">
-          <main class="grid grid-cols-[0.72fr_1.28fr] h-full">
-            <aside class="pr-6 border-r border-neutral-200">
-              <h1 class="text-[28px] font-semibold leading-tight text-neutral-900">${escapeHtml(data.fullName)}</h1>
-              <p class="mt-2 text-[13px] text-neutral-600">${escapeHtml(data.title)}</p>
-
-              <div class="mt-6">
-                <h3 class="section-title">Contact</h3>
-                <div class="mt-3 space-y-2 text-[12px] text-neutral-700">
-                  <div>${escapeHtml(data.phone)}</div>
-                  <div>${escapeHtml(data.email)}</div>
-                  <div>${escapeHtml(data.location)}</div>
-                  <div>${escapeHtml(data.linkedin)}</div>
-                </div>
-              </div>
-
-              <div class="mt-6">
-                <h3 class="section-title">Skills</h3>
-                <div class="mt-3">${skills}</div>
-              </div>
-
-              <div class="mt-6">
-                <h3 class="section-title">Additional</h3>
-                <div class="mt-3">${additional}</div>
-              </div>
-            </aside>
-
-            <section class="pl-6">
-              <div>
-                <h3 class="section-title">Profile</h3>
-                <p class="mt-3 text-[13px] leading-6">${escapeHtml(data.profile)}</p>
-              </div>
-
-              <div class="mt-6">
-                <h3 class="section-title">Experience</h3>
-                <div class="mt-3">${experience}</div>
-              </div>
-
-              <div class="mt-6">
-                <h3 class="section-title">Education</h3>
-                <div class="mt-3">${education}</div>
-              </div>
-            </section>
-          </main>
-        </div>`;
-    }
-
-    function getFormData() {
-      return {
-        layout: getValue('layoutSelect') || 'modern',
-        fullName: getValue('fullName'),
-        title: getValue('title'),
-        phone: getValue('phone'),
-        email: getValue('email'),
-        location: getValue('location'),
-        linkedin: getValue('linkedin'),
-        profile: getValue('profile'),
-        skills: document.getElementById('skills').value,
-        education: document.getElementById('education').value,
-        experience: document.getElementById('experience').value,
-        additional: document.getElementById('additional').value,
+    (function() {
+      // ----- DEFAULT DATA (Malaika Pervez – GCWU, as requested) -----
+      const DEFAULTS = {
+        layout: 'modern',
+        fullName: 'Malaika Pervez',
+        title: 'Computer Science Student | Data Entry & Administrative Support',
+        phone: '+923086336809',
+        email: 'malaikaskill@gmail.com',
+        location: 'Madina Town, Faisalabad, Pakistan',
+        linkedin: 'linkedin.com/in/malaika-pervez',
+        profile: 'Motivated Computer Science student at Government College Women University, Madina Town, Faisalabad, with strong skills in data entry, MS Office, and database handling. Detail-oriented, reliable, and experienced in maintaining confidentiality. Eager to apply administrative and data management skills in a professional environment.',
+        skills: 'Fast and accurate typing (40+ WPM)\nMicrosoft Excel (formulas, sorting, filters, pivot tables)\nData entry & record management\nDatabase fundamentals (MS Access, CRM basics)\nMS Word, PowerPoint, Outlook\nAttention to detail & confidentiality\nTime management and task prioritisation\nAdministrative support & document handling\nUrdu & English proficiency (written/verbal)\nGoogle Workspace (Docs, Sheets)',
+        education: 'Associate Degree in Computer Science | Government College Women University, Madina Town, Faisalabad | Expected 2027 | 2nd year. Core modules: Database Systems, Info Management, Office Productivity, Data Analytics.',
+        experience: 'Student Data Assistant (voluntary) | GCWU CS Department | 2025 – present | Assisted faculty in digitising student records, ensuring 100% accuracy.; Created Excel spreadsheets to track attendance and grades.; Maintained confidentiality of sensitive academic data.\n\nExcel & Database Coursework | University Projects | 2024 – 2025 | Designed relational database for library management (MS Access).; Used advanced Excel functions (vlookup, if, pivot) to analyse survey data.; Prepared reports and summaries for class presentations.',
+        additional: 'Fluent in English and Urdu\nQuick learner, comfortable with new software\nVolunteer at university events (logistics & registration)\nStrong work ethic, punctual, team player\nBasic Canva & document formatting'
       };
-    }
 
-    function renderCV() {
-      const data = getFormData();
-      const page = document.getElementById('cvPage');
-      page.className = 'a4-page rounded-[24px] shadow-xl border border-slate-200 p-8';
-      if (data.layout === 'classic') {
-        page.innerHTML = renderClassic(data);
-      } else if (data.layout === 'minimal') {
-        page.innerHTML = renderMinimal(data);
-      } else {
-        page.innerHTML = renderModern(data);
+      // references to input fields
+      const ids = ['fullName','title','phone','email','location','linkedin','profile','skills','education','experience','additional','layoutSelect'];
+
+      // helpers
+      const getValue = (id) => document.getElementById(id).value.trim();
+      const escapeHtml = (str) => String(str).replace(/[&<>"]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' })[m]);
+
+      // parse helpers (same as original but robust)
+      function getLines(val) { return val.split('\n').map(s => s.trim()).filter(Boolean); }
+
+      function parseEducation(text) {
+        return text.split('\n').map(line => line.trim()).filter(Boolean).map(line => {
+          const parts = line.split('|').map(s => s.trim());
+          return { qualification: parts[0] || '', school: parts[1] || '', date: parts[2] || '', details: parts[3] || '' };
+        });
       }
-      localStorage.setItem('cv-builder-static', JSON.stringify(data));
-    }
 
-    function loadSaved() {
-      const saved = localStorage.getItem('cv-builder-static');
-      const data = saved ? { ...defaults, ...JSON.parse(saved) } : defaults;
+      function parseExperience(text) {
+        return text.split('\n\n').map(block => block.trim()).filter(Boolean).map(block => {
+          const [role = '', company = '', date = '', bulletsRaw = ''] = block.split('|').map(s => s.trim());
+          const bullets = bulletsRaw.split(';').map(s => s.trim()).filter(Boolean);
+          return { role, company, date, bullets };
+        });
+      }
+
+      // three renderers – identical structure, only using escaped data
+      function renderModern(data) {
+        const skills = getLines(data.skills).map(s => `<span class="chip">${escapeHtml(s)}</span>`).join('');
+        const education = parseEducation(data.education).map(item => `
+          <div class="mb-3">
+            <h4 class="text-[13px] font-bold">${escapeHtml(item.qualification)}</h4>
+            <p class="text-[12px] text-slate-600">${escapeHtml(item.school)}</p>
+            <p class="text-[11px] text-slate-500">${escapeHtml(item.date)}</p>
+            <p class="mt-1 text-[12px] leading-5">${escapeHtml(item.details)}</p>
+          </div>`).join('');
+        const experience = parseExperience(data.experience).map(item => `
+          <div class="mb-4">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <h4 class="text-[13px] font-bold">${escapeHtml(item.role)}</h4>
+                <p class="text-[12px] text-slate-600">${escapeHtml(item.company)}</p>
+              </div>
+              <p class="text-[11px] text-slate-500">${escapeHtml(item.date)}</p>
+            </div>
+            <ul class="list-disc pl-4 mt-2 text-[12px] leading-5 list-bullets">${item.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}</ul>
+          </div>`).join('');
+        const additional = getLines(data.additional).map(i => `<li>${escapeHtml(i)}</li>`).join('');
+
+        return `
+          <div class="h-full layout-modern">
+            <header class="border-b border-slate-200 pb-4">
+              <h1 class="text-3xl font-bold tracking-tight text-blue-700">${escapeHtml(data.fullName)}</h1>
+              <p class="mt-1 text-sm font-medium text-slate-600">${escapeHtml(data.title)}</p>
+              <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-slate-600">
+                <span>${escapeHtml(data.phone)}</span><span>${escapeHtml(data.email)}</span><span>${escapeHtml(data.location)}</span><span>${escapeHtml(data.linkedin)}</span>
+              </div>
+            </header>
+            <main class="grid grid-cols-[1.15fr_0.85fr] gap-6 pt-4">
+              <section>
+                <div class="mb-2 mt-1"><h3 class="section-title">Profile</h3></div>
+                <p class="text-[13px] leading-5">${escapeHtml(data.profile)}</p>
+                <div class="mb-2 mt-4"><h3 class="section-title">Experience</h3></div>
+                ${experience}
+              </section>
+              <aside>
+                <div class="mb-2 mt-1"><h3 class="section-title">Skills</h3></div>
+                <div class="mb-3">${skills}</div>
+                <div class="mb-2 mt-4"><h3 class="section-title">Education</h3></div>
+                ${education}
+                <div class="mb-2 mt-4"><h3 class="section-title">Additional Information</h3></div>
+                <ul class="list-disc pl-4 text-[12px] leading-5 list-bullets">${additional}</ul>
+              </aside>
+            </main>
+          </div>`;
+      }
+
+      function renderClassic(data) {
+        const skills = getLines(data.skills).map(s => `<li>${escapeHtml(s)}</li>`).join('');
+        const education = parseEducation(data.education).map(item => `
+          <div class="mb-4">
+            <div class="flex justify-between gap-3">
+              <div>
+                <h4 class="text-[13px] font-bold">${escapeHtml(item.qualification)}</h4>
+                <p class="text-[12px] text-slate-700">${escapeHtml(item.school)}</p>
+              </div>
+              <p class="text-[11px] text-slate-500">${escapeHtml(item.date)}</p>
+            </div>
+            <p class="mt-1 text-[12px] leading-5">${escapeHtml(item.details)}</p>
+          </div>`).join('');
+        const experience = parseExperience(data.experience).map(item => `
+          <div class="mb-4">
+            <div class="flex justify-between gap-3 border-b border-slate-200 pb-1">
+              <div>
+                <h4 class="text-[13px] font-bold">${escapeHtml(item.role)}</h4>
+                <p class="text-[12px] text-slate-700">${escapeHtml(item.company)}</p>
+              </div>
+              <p class="text-[11px] text-slate-500">${escapeHtml(item.date)}</p>
+            </div>
+            <ul class="list-disc pl-4 mt-2 text-[12px] leading-5 list-bullets">${item.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}</ul>
+          </div>`).join('');
+        const additional = getLines(data.additional).map(i => `<li>${escapeHtml(i)}</li>`).join('');
+
+        return `
+          <div class="h-full layout-classic">
+            <header class="text-center border-b-2 border-slate-900 pb-4">
+              <h1 class="text-[30px] font-bold tracking-[0.08em] uppercase text-slate-900">${escapeHtml(data.fullName)}</h1>
+              <p class="mt-2 text-[13px] text-slate-700">${escapeHtml(data.title)}</p>
+              <p class="mt-3 text-[12px] text-slate-600">${escapeHtml(data.phone)}  |  ${escapeHtml(data.email)}  |  ${escapeHtml(data.location)}  |  ${escapeHtml(data.linkedin)}</p>
+            </header>
+            <main class="pt-4 text-slate-900">
+              <section>
+                <div class="mb-2"><h3 class="section-title">Personal Profile</h3></div>
+                <p class="text-[13px] leading-6">${escapeHtml(data.profile)}</p>
+              </section>
+              <section class="mt-4">
+                <div class="mb-2"><h3 class="section-title">Education</h3></div>
+                ${education}
+              </section>
+              <section class="mt-4">
+                <div class="mb-2"><h3 class="section-title">Relevant Experience</h3></div>
+                ${experience}
+              </section>
+              <section class="mt-4 grid grid-cols-2 gap-8">
+                <div>
+                  <div class="mb-2"><h3 class="section-title">Key Skills</h3></div>
+                  <ul class="list-disc pl-4 text-[12px] leading-5 skill-bullets">${skills}</ul>
+                </div>
+                <div>
+                  <div class="mb-2"><h3 class="section-title">Additional Information</h3></div>
+                  <ul class="list-disc pl-4 text-[12px] leading-5 list-bullets">${additional}</ul>
+                </div>
+              </section>
+            </main>
+          </div>`;
+      }
+
+      function renderMinimal(data) {
+        const skills = getLines(data.skills).map(s => `<div class="text-[12px] py-1 border-b border-neutral-200">${escapeHtml(s)}</div>`).join('');
+        const education = parseEducation(data.education).map(item => `
+          <div class="mb-4">
+            <h4 class="text-[13px] font-semibold">${escapeHtml(item.qualification)}</h4>
+            <div class="mt-1 text-[12px] text-neutral-600">${escapeHtml(item.school)} · ${escapeHtml(item.date)}</div>
+            <p class="mt-1 text-[12px] leading-5">${escapeHtml(item.details)}</p>
+          </div>`).join('');
+        const experience = parseExperience(data.experience).map(item => `
+          <div class="mb-5">
+            <div class="flex justify-between gap-3 items-baseline">
+              <h4 class="text-[14px] font-semibold">${escapeHtml(item.role)}</h4>
+              <span class="text-[11px] text-neutral-500">${escapeHtml(item.date)}</span>
+            </div>
+            <div class="text-[12px] text-neutral-600 mt-1">${escapeHtml(item.company)}</div>
+            <ul class="mt-2 text-[12px] leading-5 list-bullets">${item.bullets.map(b => `<li>— ${escapeHtml(b)}</li>`).join('')}</ul>
+          </div>`).join('');
+        const additional = getLines(data.additional).map(i => `<div class="text-[12px] py-1 border-b border-neutral-200">${escapeHtml(i)}</div>`).join('');
+
+        return `
+          <div class="h-full layout-minimal">
+            <main class="grid grid-cols-[0.72fr_1.28fr] h-full">
+              <aside class="pr-6 border-r border-neutral-200">
+                <h1 class="text-[28px] font-semibold leading-tight text-neutral-900">${escapeHtml(data.fullName)}</h1>
+                <p class="mt-2 text-[13px] text-neutral-600">${escapeHtml(data.title)}</p>
+                <div class="mt-6">
+                  <h3 class="section-title">Contact</h3>
+                  <div class="mt-3 space-y-2 text-[12px] text-neutral-700">
+                    <div>${escapeHtml(data.phone)}</div>
+                    <div>${escapeHtml(data.email)}</div>
+                    <div>${escapeHtml(data.location)}</div>
+                    <div>${escapeHtml(data.linkedin)}</div>
+                  </div>
+                </div>
+                <div class="mt-6">
+                  <h3 class="section-title">Skills</h3>
+                  <div class="mt-3">${skills}</div>
+                </div>
+                <div class="mt-6">
+                  <h3 class="section-title">Additional</h3>
+                  <div class="mt-3">${additional}</div>
+                </div>
+              </aside>
+              <section class="pl-6">
+                <div>
+                  <h3 class="section-title">Profile</h3>
+                  <p class="mt-3 text-[13px] leading-6">${escapeHtml(data.profile)}</p>
+                </div>
+                <div class="mt-6">
+                  <h3 class="section-title">Experience</h3>
+                  <div class="mt-3">${experience}</div>
+                </div>
+                <div class="mt-6">
+                  <h3 class="section-title">Education</h3>
+                  <div class="mt-3">${education}</div>
+                </div>
+              </section>
+            </main>
+          </div>`;
+      }
+
+      // gather current form data
+      function getFormData() {
+        return {
+          layout: getValue('layoutSelect') || 'modern',
+          fullName: getValue('fullName'),
+          title: getValue('title'),
+          phone: getValue('phone'),
+          email: getValue('email'),
+          location: getValue('location'),
+          linkedin: getValue('linkedin'),
+          profile: getValue('profile'),
+          skills: document.getElementById('skills').value,
+          education: document.getElementById('education').value,
+          experience: document.getElementById('experience').value,
+          additional: document.getElementById('additional').value,
+        };
+      }
+
+      // main render function
+      function renderCV() {
+        const data = getFormData();
+        const page = document.getElementById('cvPage');
+        // reset class but keep base
+        page.className = 'a4-page rounded-[24px] shadow-xl border border-slate-200 p-8';
+
+        if (data.layout === 'classic') {
+          page.innerHTML = renderClassic(data);
+        } else if (data.layout === 'minimal') {
+          page.innerHTML = renderMinimal(data);
+        } else {
+          page.innerHTML = renderModern(data);
+        }
+        // save to localStorage
+        localStorage.setItem('cv-builder-static', JSON.stringify(data));
+      }
+
+      // load from localStorage or defaults
+      function loadInitial() {
+        const saved = localStorage.getItem('cv-builder-static');
+        let initialData;
+        if (saved) {
+          try { initialData = { ...DEFAULTS, ...JSON.parse(saved) }; }
+          catch { initialData = DEFAULTS; }
+        } else {
+          initialData = DEFAULTS;
+        }
+
+        ids.forEach(id => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          if (id === 'layoutSelect') el.value = initialData.layout;
+          else el.value = initialData[id] || '';
+        });
+        renderCV();
+      }
+
+      // reset to Malaika’s defaults
+      function resetToDefault() {
+        localStorage.removeItem('cv-builder-static');
+        ids.forEach(id => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          if (id === 'layoutSelect') el.value = DEFAULTS.layout;
+          else el.value = DEFAULTS[id] || '';
+        });
+        renderCV();
+      }
+
+      // attach event listeners
       ids.forEach(id => {
         const el = document.getElementById(id);
-        if (!el) return;
-        if (id === 'layoutSelect') el.value = data.layout;
-        else el.value = data[id] || '';
+        if (el) {
+          el.addEventListener('input', renderCV);
+          el.addEventListener('change', renderCV);
+        }
       });
-      renderCV();
-    }
 
-    ids.forEach(id => {
-      const el = document.getElementById(id);
-      el.addEventListener('input', renderCV);
-      el.addEventListener('change', renderCV);
-    });
-
-    document.getElementById('toggleSettings').addEventListener('click', () => {
-      document.getElementById('settingsPanel').classList.toggle('hidden');
-    });
-
-    document.getElementById('savePdf').addEventListener('click', () => window.print());
-    document.getElementById('resetData').addEventListener('click', () => {
-      localStorage.removeItem('cv-builder-static');
-      Object.entries(defaults).forEach(([key, value]) => {
-        const el = document.getElementById(key === 'layout' ? 'layoutSelect' : key);
-        if (el) el.value = value;
+      document.getElementById('toggleSettings').addEventListener('click', () => {
+        document.getElementById('settingsPanel').classList.toggle('hidden');
       });
-      renderCV();
-    });
 
-    loadSaved();
+      document.getElementById('savePdf').addEventListener('click', () => {
+        window.print();    // clean A4 print
+      });
+
+      document.getElementById('resetData').addEventListener('click', resetToDefault);
+
+      // start
+      loadInitial();
+    })();
   </script>
 </body>
 </html>
